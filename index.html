@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Charlie Vuong – Portfolio</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font for Logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Animate on scroll -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#F0EEE9;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+            color:#333;
+        }
+        /* Sidebar */
+        .sidebar{
+            min-height:100vh;
+            background:linear-gradient(180deg,#f3e7d9,#f8f6f2);
+            border-right:1px solid #0F4C81;
+            padding:30px 0px;
+            position:sticky;
+            top:0;
+            align-self:flex-start;
+        }
+        .logo{
+            padding: 0 20px 30px 20px;
+            border-bottom: 1px solid #0F4C81;
+            line-height:1;
+            display: flex;
+            justify-content: center;
+        }
+        .blog-list{
+            padding: 30px 20px 30px 20px;
+        }
+        .introduce{
+            padding: 0 20px 30px 20px;
+            border-bottom: 1px solid #0F4C81;
+            color: #0F4C81;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .logo-img{
+            width:65%;
+            height:auto;
+            display:block;
+        }
+        .nav-link{
+            text-transform: uppercase;
+            color:#0F4C81;
+            padding: 3px 20px;
+            transition:.2s;
+        }
+        .nav-link.active{
+            border: 1px solid #0F4C81;
+            color:#0F4C81;
+            font-weight:600;
+        }
+        .nav-link:hover{
+            color:#0F4C81;
+        }
+        .blog-list small{
+            color:#3F6F9A;
+        }
+        /* Content */
+        .content{
+            padding: 0;
+        }
+        section#about,#experience,#projects {
+            padding: 0 30px 30px 30px;
+            border-bottom: 1px solid #0F4C81;
+            margin-bottom: 30px !important;
+        }
+
+
+        /* Top header menu sticky */
+        .top-menu{
+            padding-left: 30px !important;
+            position:sticky;
+            top:0;
+            z-index:50;
+            background:#f7f4ef;
+            padding:10px 0;
+            border-bottom:1px solid #0F4C81;
+        }
+        h2.section-title{
+            font-size:18px;
+            letter-spacing:1px;
+            color:#0F4C81;
+            padding-bottom:6px;
+            margin-bottom:15px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            cursor:pointer;
+        }
+        .section-title i{
+            transition:.3s ease;
+        }
+        .section-collapsed .section-title i{
+            transform:rotate(180deg);
+        }
+        .section-body{
+            overflow:hidden;
+            color: #0F4C81;
+        }
+        .section-body p{
+            color: #0F4C81;
+            font-size: 16px;
+        }
+        /* About */
+        .about img{
+            /*max-width:200px;*/
+        }
+        /* Experience */
+        .exp-item{
+            border-left:3px solid #0F4C81;
+            padding-left:15px;
+            margin-bottom:20px;
+            display: flex;
+        }
+        .exp-item .col-md-3.e-l{
+            text-align: start;
+        }
+        /* Projects */
+        .project-card{
+            overflow:hidden;
+            transition:.35s ease;
+        }
+        a{
+            text-decoration: none;
+        }
+        .project-card strong{
+            font-size: 18px;
+            text-decoration: underline;
+            color: #0F4C81;
+        }
+        .project-card p.first{
+            padding-top: 10px;
+        }
+        .project-card .p-3{
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        .project-card:hover{
+            transform:translateY(-6px);
+        }
+        .project-thumb{
+            position:relative;
+            overflow:hidden;
+        }
+        .project-thumb img{
+            width:100%;
+            transition:.4s ease;
+        }
+        .project-card:hover img{
+            transform:scale(1.08);
+        }
+        .play-btn{
+            position:absolute;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:40px;
+            color:white;
+            background:rgba(0,0,0,.25);
+            opacity:0;
+            transition:.3s;
+        }
+        .project-card:hover .play-btn{
+            opacity:1;
+        }
+        #projects{
+            margin-bottom: 0 !important;
+        }
+        footer{
+            padding: 15px 30px;
+            font-size:16px;
+            color:#0F4C81;
+            justify-content: space-between;
+            align-items: center;
+
+
+        }
+        footer p{
+            margin-bottom: 0;
+        }
+        footer .icon_social{
+            display: grid;
+            gap: 15px;
+            grid-auto-flow: column;
+        }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 991px){
+            /* hide desktop sidebar */
+            .sidebar{display:none;}
+            .exp-item{
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            /* offcanvas sidebar */
+            .mobile-sidebar{
+                position:fixed;
+                top:0; left:0;
+                width: 80%;
+                height:100vh;
+                background:linear-gradient(180deg,#f3e7d9,#f8f6f2);
+                z-index:2000;
+                transform:translateX(-100%);
+                transition:.35s ease;
+                padding:24px 20px;
+            }
+            .mobile-sidebar.active{transform:translateX(0);}
+            .mobile-overlay{
+                position:fixed;
+                inset:0;
+                background:rgba(0,0,0,.35);
+                z-index:1999;
+                display:none;
+            }
+            .mobile-overlay.active{display:block;}
+
+            .sidebar{
+                position:relative;
+                min-height:auto;
+                border-right:none;
+                border-bottom:1px solid #e5e5e5;
+            }
+            .logo{
+                font-size:26px;
+                text-align:center;
+            }
+            .introduce{
+                padding: 0 20px 30px 0px;
+            }
+            .blog-list {
+                padding: 30px 20px 30px 0;
+            }
+            .mobile-sidebar .t_t{
+                border-bottom: 1px solid #0F4C81;
+            }
+            .logo{
+                border-bottom: unset;
+            }
+            .content{
+                padding:20px 16px;
+            }
+            .top-menu{
+                display:flex;
+                justify-content:space-between;
+                gap:12px;
+                overflow-x:auto;
+                white-space:nowrap;
+                padding:10px 0px;
+                padding-left: 0 !important;
+            }
+            section#about, #experience, #projects{
+                padding: 0;
+            }
+            .section-body{
+                text-align: center;
+            }
+            .section-body p{
+                text-align: justify;
+            }
+            #projects .row.g-5 .col-md-4{
+                margin-top: 15px;
+            }
+            footer{
+                flex-wrap: wrap;
+                padding: 15px 0;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .top-menu .nav-link{
+                padding:6px 10px;
+                border-radius:20px;
+                background:#eee;
+                font-size:14px;
+            }
+            .top-menu .nav-link.active{
+                background:#0F4C81;
+                color:#fff;
+            }
+            h2.section-title{
+                font-size:16px;
+            }
+            .about img{
+                margin-bottom:12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="top"></div>
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <aside class="col-md-3 col-lg-2 sidebar">
+            <div class="logo mb-4">
+                <img src="img/logo.svg" alt="Charlie Vuong" class="logo-img">
+            </div>
+
+            <div class="introduce">
+                <span>Hi! I’m a researcher, designer, & artist making feminist technologies.</span>
+            </div>
+
+            <div class="blog-list">
+                <small>Blog</small>
+                <ul class="list-unstyled mt-2">
+                    <li class="mb-2"><small><strong>October 2025</strong> – You are welcome to attend my PhD seminar</small></li>
+                    <li class="mb-2"><small><strong>November 2025</strong> – Selected to attend the 80% seminar</small></li>
+                    <li><small><strong>December 2025</strong> – Welcome to attend my PhD</small></li>
+                </ul>
+            </div>
+        </aside>
+
+
+
+        <!-- Main content -->
+        <main class="col-md-9 col-lg-10 content">
+
+            <!-- Top menu (above About) -->
+            <nav class="nav mb-4 top-menu">
+                <!-- Mobile hamburger -->
+                <button class="btn d-lg-none me-2" id="openSidebar"><i class="fa-solid fa-bars"></i></button>
+                <a class="nav-link me-4" href="#top">Home</a>
+                <a class="nav-link me-4" href="#about">About</a>
+                <a class="nav-link me-4" href="#experience">Experience</a>
+                <a class="nav-link" href="#projects">Project</a>
+            </nav>
+
+            <!-- About -->
+            <section id="about" style="scroll-margin-top:80px;" class="about mb-5 collapsible" data-aos="fade-up">
+                <h2 class="section-title">ABOUT <i class="fa-solid fa-angle-up"></i></h2>
+                <div class="section-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="img/avatar.svg" alt="profile">
+                        </div>
+                        <div class="col-md-9">
+                            <p>I am a Research Scientist at Apple in the Video Computer-Vision Science team. I completed my CS PhD in 2023 at UC Berkeley, where I worked with Björn Hartmann.
+                                Research interests: HCI, computer vision, ML dev tools, model optimization
+                                Groups: Berkeley AI Research (BAIR) Lab and the Berkeley Institute of Design (BiD) Thesis: Enhancing Visual Media Through Reflection and Recomposition [video] Committee: Björn Hartmann (advisor), Alexei Efros, Marti Hearst, Valentina Shin</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience -->
+            <section id="experience" class="mb-5 collapsible" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="section-title">EXPERIENCE <i class="fa-solid fa-angle-up"></i></h2>
+                <div class="section-body">
+                    <div class="exp-item">
+                        <div class="col-md-3 e-l">
+                            <strong>Apple · Research Scientist </strong><br>
+                            <small>2023 – 2024</small>
+                        </div>
+                        <div class="col-md-9 e-r">
+                            <p>My team develops and deploys machine learning model optimization and analysis techniques, enabling the launch of Apple Intelligence (on-device LLMs) and the Vision Pro (research post: optimization).</p>
+                        </div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="col-md-3 e-l">
+                            <strong>Apple · Research Scientist </strong><br>
+                            <small>2023 – 2024</small>
+                        </div>
+                        <div class="col-md-9 e-r">
+                            <p>My team develops and deploys machine learning model optimization and analysis techniques, enabling the launch of Apple Intelligence (on-device LLMs) and the Vision Pro (research post: optimization).</p>
+                        </div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="col-md-3 e-l">
+                            <strong>Apple · Research Scientist </strong><br>
+                            <small>2023 – 2024</small>
+                        </div>
+                        <div class="col-md-9 e-r">
+                            <p>My team develops and deploys machine learning model optimization and analysis techniques, enabling the launch of Apple Intelligence (on-device LLMs) and the Vision Pro (research post: optimization).</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Projects -->
+            <section id="projects" class="collapsible" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="section-title">PROJECTS <i class="fa-solid fa-angle-up"></i></h2>
+                <div class="section-body">
+                    <div class="row g-5">
+
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                <div class="project-thumb">
+                                    <a href="#">
+                                        <img src="img/project.svg" alt="project">
+                                    </a>
+                                </div>
+                                <div class="p-3">
+                                    <a href="#">
+                                        <strong>Apple · Research Scientist </strong>
+                                        <p class="mb-0 first">Peitong Duan, Jeremy Warner, Yang Li, Björn Hartmann</p>
+                                        <br>
+                                        <p>My team develops and deploys machine learning model optimization and analysis techniques</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                <div class="project-thumb">
+                                    <a href="#">
+                                        <img src="img/project.svg" alt="project">
+                                    </a>
+                                </div>
+                                <div class="p-3">
+                                    <a href="#">
+                                        <strong>Apple · Research Scientist </strong>
+                                        <p class="mb-0 first">Peitong Duan, Jeremy Warner, Yang Li, Björn Hartmann</p>
+                                        <br>
+                                        <p>My team develops and deploys machine learning model optimization and analysis techniques</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                <div class="project-thumb">
+                                    <a href="#">
+                                        <img src="img/project.svg" alt="project">
+                                    </a>
+                                </div>
+                                <div class="p-3">
+                                    <a href="#">
+                                        <strong>Apple · Research Scientist </strong>
+                                        <p class="mb-0 first">Peitong Duan, Jeremy Warner, Yang Li, Björn Hartmann</p>
+                                        <br>
+                                        <p>My team develops and deploys machine learning model optimization and analysis techniques</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                <div class="project-thumb">
+                                    <a href="#">
+                                        <img src="img/project.svg" alt="project">
+                                    </a>
+                                </div>
+                                <div class="p-3">
+                                    <a href="#">
+                                        <strong>Apple · Research Scientist </strong>
+                                        <p class="mb-0 first">Peitong Duan, Jeremy Warner, Yang Li, Björn Hartmann</p>
+                                        <br>
+                                        <p>My team develops and deploys machine learning model optimization and analysis techniques</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                <div class="project-thumb">
+                                    <a href="#">
+                                        <img src="img/project.svg" alt="project">
+                                    </a>
+                                </div>
+                                <div class="p-3">
+                                    <a href="#">
+                                        <strong>Apple · Research Scientist </strong>
+                                        <p class="mb-0 first">Peitong Duan, Jeremy Warner, Yang Li, Björn Hartmann</p>
+                                        <br>
+                                        <p>My team develops and deploys machine learning model optimization and analysis techniques</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+
+            <footer class="text-center d-flex">
+                <p>
+                    Updated: June 2025
+                </p>
+                <div class="mt-2 icon_social">
+                    <a href="#">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
+                            <path d="M13.0272 7.7149C13.8724 7.97617 14.6762 8.33861 15.4178 8.79281C16.4657 8.54711 17.5434 8.42385 18.6251 8.42595C19.7422 8.42595 20.82 8.55374 21.8302 8.79178C22.5715 8.33802 23.3749 7.97593 24.2197 7.7149C25.0038 7.47067 26.1209 7.07495 26.7846 7.74788C27.2346 8.20542 27.3471 8.97212 27.427 9.55745C27.517 10.2108 27.5384 11.062 27.3021 11.907C28.2055 12.9757 28.75 14.2504 28.75 15.6395C28.75 17.7438 27.5058 19.5709 25.6642 20.8364C24.7775 21.4371 23.7946 21.9085 22.7504 22.2338C22.9912 22.7387 23.1251 23.2973 23.1251 23.8836V26.9751C23.1251 27.2485 23.0065 27.5106 22.7956 27.7038C22.5846 27.8971 22.2984 28.0057 22.0001 28.0057H15.2502C14.9518 28.0057 14.6657 27.8971 14.4547 27.7038C14.2437 27.5106 14.1252 27.2485 14.1252 26.9751V25.9539C13.0508 26.0745 12.1497 25.9673 11.3836 25.6695C10.5826 25.3583 10.0246 24.876 9.60498 24.4143C9.20674 23.9774 8.77249 22.9922 8.14475 22.8005C8.00455 22.7578 7.87492 22.6901 7.76325 22.6015C7.65159 22.5128 7.56008 22.4049 7.49396 22.2838C7.36041 22.0394 7.33835 21.7563 7.43263 21.4969C7.52692 21.2376 7.72982 21.0231 7.9967 20.9008C8.26359 20.7785 8.57259 20.7583 8.85574 20.8446C9.60498 21.0734 10.0932 21.5681 10.4273 21.9658C10.9673 22.6047 11.4061 23.4395 12.2611 23.7723C12.6132 23.9094 13.1296 23.999 13.9373 23.898L14.1252 23.863C14.1278 23.3022 14.2552 22.7478 14.4998 22.2338C13.4557 21.9085 12.4728 21.4371 11.5861 20.8364C9.74448 19.5709 8.50024 17.7449 8.50024 15.6395C8.50024 14.2525 9.04361 12.9787 9.94473 11.9111C9.70848 11.0661 9.72873 10.2129 9.81873 9.55848L9.82435 9.51933C9.90648 8.91957 10.0021 8.21367 10.4611 7.74788C11.1248 7.07495 12.2431 7.4717 13.0261 7.71593L13.0272 7.7149Z" fill="white"/>
+                        </svg>
+                    </a>
+                    <a href="#">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
+                            <path d="M23.7999 9.3999C24.2773 9.3999 24.7351 9.58954 25.0727 9.92711C25.4103 10.2647 25.5999 10.7225 25.5999 11.1999V23.7999C25.5999 24.2773 25.4103 24.7351 25.0727 25.0727C24.7351 25.4103 24.2773 25.5999 23.7999 25.5999H11.1999C10.7225 25.5999 10.2647 25.4103 9.92711 25.0727C9.58954 24.7351 9.3999 24.2773 9.3999 23.7999V11.1999C9.3999 10.7225 9.58954 10.2647 9.92711 9.92711C10.2647 9.58954 10.7225 9.3999 11.1999 9.3999H23.7999ZM23.3499 23.3499V18.5799C23.3499 17.8018 23.0408 17.0555 22.4906 16.5053C21.9403 15.955 21.194 15.6459 20.4159 15.6459C19.6509 15.6459 18.7599 16.1139 18.3279 16.8159V15.8169H15.8169V23.3499H18.3279V18.9129C18.3279 18.2199 18.8859 17.6529 19.5789 17.6529C19.9131 17.6529 20.2336 17.7857 20.4699 18.0219C20.7062 18.2582 20.8389 18.5787 20.8389 18.9129V23.3499H23.3499ZM12.8919 14.4039C13.2929 14.4039 13.6775 14.2446 13.961 13.961C14.2446 13.6775 14.4039 13.2929 14.4039 12.8919C14.4039 12.0549 13.7289 11.3709 12.8919 11.3709C12.4885 11.3709 12.1016 11.5312 11.8164 11.8164C11.5312 12.1016 11.3709 12.4885 11.3709 12.8919C11.3709 13.7289 12.0549 14.4039 12.8919 14.4039ZM14.1429 23.3499V15.8169H11.6499V23.3499H14.1429Z" fill="white"/>
+                        </svg>
+
+                    </a>
+                    <a href="#">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
+                            <path d="M11.7979 18.9926L7.375 15.3906L17.5 7.375L27.625 15.3906L23.2021 18.9926C22.1811 16.8663 20.0127 15.3906 17.5 15.3906C14.9882 15.3906 12.8189 16.8655 11.7979 18.9926ZM17.5 15.8125C15.9336 15.8125 14.4313 16.4348 13.3237 17.5424C12.216 18.65 11.5938 20.1523 11.5938 21.7188C11.5938 23.2852 12.216 24.7875 13.3237 25.8951C14.4313 27.0027 15.9336 27.625 17.5 27.625C19.0664 27.625 20.5687 27.0027 21.6763 25.8951C22.784 24.7875 23.4062 23.2852 23.4062 21.7188C23.4062 20.1523 22.784 18.65 21.6763 17.5424C20.5687 16.4348 19.0664 15.8125 17.5 15.8125Z" fill="white"/>
+                        </svg>
+
+                    </a>
+                    <a href="">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
+                            <path d="M25.0598 22.5625H23.1698V15.1797L17.4998 18.3438L11.8298 15.1797V22.5625H9.9398V12.4375H11.0738L17.4998 16.0234L23.9258 12.4375H25.0598M25.0598 10.75H9.9398C8.89085 10.75 8.0498 11.5009 8.0498 12.4375V22.5625C8.0498 23.0101 8.24893 23.4393 8.60337 23.7557C8.95782 24.0722 9.43855 24.25 9.9398 24.25H25.0598C25.5611 24.25 26.0418 24.0722 26.3962 23.7557C26.7507 23.4393 26.9498 23.0101 26.9498 22.5625V12.4375C26.9498 11.9899 26.7507 11.5607 26.3962 11.2443C26.0418 10.9278 25.5611 10.75 25.0598 10.75Z" fill="white"/>
+                        </svg>
+
+                    </a>
+                    <a href="">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.21875 17.5001C8.21875 16.0856 8.8752 14.729 10.0437 13.7288C11.2122 12.7287 12.797 12.1667 14.4495 12.1667H21.8341C22.997 12.1667 24.1123 12.5622 24.9345 13.266C25.7568 13.9698 26.2188 14.9245 26.2188 15.9198C26.2188 16.9152 25.7568 17.8698 24.9345 18.5737C24.1123 19.2775 22.997 19.6729 21.8341 19.6729H14.3175C13.6443 19.6729 12.9986 19.444 12.5226 19.0365C12.0465 18.629 11.7791 18.0764 11.7791 17.5001C11.7791 16.9238 12.0465 16.3711 12.5226 15.9637C12.9986 15.5562 13.6443 15.3272 14.3175 15.3272H21.5701C21.7537 15.3272 21.9298 15.3897 22.0597 15.5008C22.1895 15.6119 22.2624 15.7627 22.2624 15.9198C22.2624 16.077 22.1895 16.2277 22.0597 16.3389C21.9298 16.45 21.7537 16.5124 21.5701 16.5124H14.3175C14.0115 16.5124 13.718 16.6165 13.5016 16.8017C13.2852 16.9869 13.1637 17.2381 13.1637 17.5001C13.1637 17.762 13.2852 18.0132 13.5016 18.1985C13.718 18.3837 14.0115 18.4877 14.3175 18.4877H21.8341C22.6298 18.4877 23.3928 18.2172 23.9555 17.7356C24.5181 17.254 24.8341 16.6009 24.8341 15.9198C24.8341 15.2388 24.5181 14.5856 23.9555 14.1041C23.3928 13.6225 22.6298 13.3519 21.8341 13.3519H14.4495C13.1642 13.3519 11.9316 13.789 11.0228 14.5669C10.1139 15.3448 9.60337 16.3999 9.60337 17.5001C9.60337 18.6002 10.1139 19.6553 11.0228 20.4333C11.9316 21.2112 13.1642 21.6482 14.4495 21.6482H21.5701C21.7537 21.6482 21.9298 21.7107 22.0597 21.8218C22.1895 21.9329 22.2624 22.0837 22.2624 22.2408C22.2624 22.398 22.1895 22.5487 22.0597 22.6598C21.9298 22.771 21.7537 22.8334 21.5701 22.8334H14.4495C12.797 22.8334 11.2122 22.2715 10.0437 21.2713C8.8752 20.2711 8.21875 18.9146 8.21875 17.5001Z" fill="white"/>
+                        </svg>
+
+                    </a>
+                </div>
+                <p>
+                    @charlievuong
+                </p>
+            </footer>
+
+        </main>
+    </div>
+</div>
+
+<!-- Mobile sidebar (outside grid to avoid layout break) -->
+<div class="mobile-sidebar d-lg-none" id="mobileSidebar">
+    <div class="d-flex justify-content-between align-items-center mb-4 t_t">
+        <div class="logo">
+            <img src="img/logo.svg" alt="Charlie Vuong" class="logo-img">
+        </div>
+        <button class="btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="introduce">
+        <span>Hi! I’m a researcher, designer, & artist making feminist technologies.</span>
+    </div>
+
+    <div class="blog-list">
+        <small>Blog</small>
+        <ul class="list-unstyled mt-2">
+            <li class="mb-2"><small><strong>October 2025</strong> – You are welcome to attend my PhD seminar</small></li>
+            <li class="mb-2"><small><strong>November 2025</strong> – Selected to attend the 80% seminar</small></li>
+            <li><small><strong>December 2025</strong> – Welcome to attend my PhD</small></li>
+        </ul>
+    </div>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({duration:800, once:true});
+
+    // Smooth scroll + active menu on click
+    $('a.nav-link[href^="#"]').on('click', function(e){
+        e.preventDefault();
+
+        const targetId = $(this).attr('href');
+        const target = $(targetId);
+
+        // set active immediately
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+
+        if(target.length){
+            $('html, body').stop().animate({
+                scrollTop: target.offset().top - ($('.top-menu').outerHeight() + 20)
+            }, 600);
+        }
+    });
+
+    // Toggle section
+    $('.section-title').on('click', function(){
+        const section = $(this).closest('.collapsible');
+        const body = section.find('.section-body');
+
+        body.slideToggle(300);
+        section.toggleClass('section-collapsed');
+    });
+
+    // Active menu on scroll
+    const sections = $('section[id]');
+    const navLinks = $('.nav-link');
+
+    $(window).on('scroll', function(){
+        const scrollPos = $(document).scrollTop() + 120;
+
+        sections.each(function(){
+            const top = $(this).offset().top;
+            const bottom = top + $(this).outerHeight();
+            const id = $(this).attr('id');
+
+            if(scrollPos >= top && scrollPos <= bottom){
+                navLinks.removeClass('active');
+                $('.nav-link[href="#' + id + '"]').addClass('active');
+            }
+        });
+    });
+
+    // Mobile sidebar toggle
+    $('#openSidebar').on('click', function(){
+        $('#mobileSidebar, #mobileOverlay').addClass('active');
+    });
+    $('#closeSidebar, #mobileOverlay').on('click', function(){
+        $('#mobileSidebar, #mobileOverlay').removeClass('active');
+    });
+</script>
+</body>
+</html>

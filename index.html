@@ -229,6 +229,50 @@
             padding-bottom:60px;
         }
 
+        /*hiệu ứng gradien sidebar*/
+        @keyframes decoIn{
+            to{
+                opacity:1;
+                transform:scale(1) translateX(0);
+            }
+        }
+        .sidebar{
+            overflow:hidden;
+        }
+
+        .sidebar-deco{
+            z-index: -1;
+            position:absolute;
+            width:300px;
+            height: 350px;
+            opacity:0;
+            transform:scale(0.4) translateX(-60px);
+            animation:decoIn 1.2s ease-out forwards;
+            background: linear-gradient(178deg, rgba(238, 238, 238, 0.60) 32.85%, rgba(255, 190, 152, 0.60) 71.79%, rgba(255, 255, 243, 0.60) 110.73%);
+
+            filter: blur(125.75px);
+        }
+        .sidebar-deco.deco-top{
+            transform: rotate(133.7deg) !important;
+        }
+        .sidebar-deco.deco-bottom{
+            transform: rotate(165.105deg) !important;
+        }
+
+        .deco-top{
+            top:-60px;
+            left:-80px;
+            animation-delay:.2s;
+        }
+
+        .deco-bottom{
+            bottom:-100px;
+            left:-80px;
+            animation-delay:.4s;
+        }
+
+
+
         /* ================= MOBILE ================= */
         @media (max-width: 991px){
             /* hide desktop sidebar */
@@ -342,6 +386,10 @@
 
         <!-- Sidebar -->
         <aside class="col-md-3 col-lg-2 sidebar">
+
+            <!-- Decorative gradient circles -->
+            <img src="img/Gradient.svg" class="sidebar-deco deco-top" alt="">
+            <img src="img/Gradient.svg" class="sidebar-deco deco-bottom" alt="">
             <div class="logo mb-4">
                 <img src="img/logo.svg" alt="Charlie Vuong" class="logo-img">
             </div>

@@ -26,7 +26,6 @@
         /* Sidebar */
         .sidebar{
             min-height:100vh;
-            background:linear-gradient(180deg,#f3e7d9,#f8f6f2);
             border-right:1px solid #0F4C81;
             padding:30px 0px;
             position:sticky;
@@ -42,6 +41,10 @@
         }
         .blog-list{
             padding: 30px 20px 30px 20px;
+        }
+        .blog-list li a{
+            color: #0F4C81;
+            text-decoration: underline;
         }
         .introduce{
             padding: 0 20px 30px 20px;
@@ -81,6 +84,9 @@
             border-bottom: 1px solid #0F4C81;
             margin-bottom: 30px !important;
         }
+        section#about.section-collapsed , #experience.section-collapsed, #projects.section-collapsed{
+            padding-bottom: 0 !important;
+        }
 
 
         /* Top header menu sticky */
@@ -89,7 +95,8 @@
             position:sticky;
             top:0;
             z-index:50;
-            /*background:#f7f4ef;*/
+            background: #F0EEE9;
+            margin-bottom: 30px !important;
             padding:10px 0;
             border-bottom:1px solid #0F4C81;
         }
@@ -97,8 +104,8 @@
             font-size:18px;
             letter-spacing:1px;
             color:#0F4C81;
-            padding-bottom:6px;
-            margin-bottom:15px;
+            padding-bottom:10px;
+            margin-bottom:20px;
             display:flex;
             align-items:center;
             justify-content:space-between;
@@ -124,10 +131,15 @@
         }
         /* Experience */
         .exp-item{
-            border-left:3px solid #0F4C81;
-            padding-left:15px;
+            /*border-left:3px solid #0F4C81;*/
+            /*padding-left:15px;*/
             margin-bottom:20px;
             display: flex;
+        }
+        .exp-item a{
+            color: #0F4C81;
+            text-decoration: underline;
+            font-size: 17px;
         }
         .exp-item .col-md-3.e-l{
             text-align: start;
@@ -141,7 +153,7 @@
             text-decoration: none;
         }
         .project-card strong{
-            font-size: 18px;
+            font-size: 17px;
             text-decoration: underline;
             color: #0F4C81;
         }
@@ -185,15 +197,22 @@
             margin-bottom: 0 !important;
         }
         footer{
-            padding: 15px 30px;
+            padding: 10px 30px;
             font-size:16px;
             color:#0F4C81;
             justify-content: space-between;
             align-items: center;
-
+            position:fixed;
+            bottom:0;
+            background: #F0EEE9;
+            z-index:60;
+            left:16.6666667%; /* đúng bằng col-lg-2 */
+            right:0;
+            border-top:1px solid #0F4C81;
 
         }
         footer p{
+            font-style: italic;
             margin-bottom: 0;
         }
         footer .icon_social{
@@ -201,11 +220,22 @@
             gap: 15px;
             grid-auto-flow: column;
         }
+        footer .icon_social svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        main.content{
+            padding-bottom:60px;
+        }
 
         /* ================= MOBILE ================= */
         @media (max-width: 991px){
             /* hide desktop sidebar */
             .sidebar{display:none;}
+            footer{
+                left:0;
+            }
             .exp-item{
                 flex-wrap: wrap;
                 gap: 10px;
@@ -258,7 +288,7 @@
                 padding:20px 16px;
             }
             .top-menu{
-                background: #f7f4ef;
+                background: #F0EEE9;
                 display:flex;
                 justify-content:space-between;
                 gap:5px;
@@ -323,9 +353,9 @@
             <div class="blog-list">
                 <small>Blog</small>
                 <ul class="list-unstyled mt-2">
-                    <li class="mb-2"><small><strong>October 2025</strong> – You are welcome to attend my PhD seminar</small></li>
-                    <li class="mb-2"><small><strong>November 2025</strong> – Selected to attend the 80% seminar</small></li>
-                    <li><small><strong>December 2025</strong> – Welcome to attend my PhD</small></li>
+                    <li class="mb-2"><small><strong>October 2025</strong> – <a href="#">You are welcome to attend my PhD seminar</a></small></li>
+                    <li class="mb-2"><small><strong>November 2025</strong> – <a href="#">Selected to attend the 80% seminar</a></small></li>
+                    <li><small><strong>December 2025</strong> – <a href="#">Welcome to attend my PhD</a></small></li>
                 </ul>
             </div>
         </aside>
@@ -342,7 +372,7 @@
                 <a class="nav-link me-4" href="#top">Home</a>
                 <a class="nav-link me-4" href="#about">About</a>
                 <a class="nav-link me-4" href="#experience">Experience</a>
-                <a class="nav-link" href="#projects">Project</a>
+                <a class="nav-link" href="#projects">Projects</a>
             </nav>
 
             <!-- About -->
@@ -368,7 +398,8 @@
                 <div class="section-body">
                     <div class="exp-item">
                         <div class="col-md-3 e-l">
-                            <strong>Apple · Research Scientist </strong><br>
+                            <a href="#"><strong>Apple · Research Scientist </strong></a>
+                            <br>
                             <small>2023 – 2024</small>
                         </div>
                         <div class="col-md-9 e-r">
@@ -377,7 +408,8 @@
                     </div>
                     <div class="exp-item">
                         <div class="col-md-3 e-l">
-                            <strong>Apple · Research Scientist </strong><br>
+                            <a href="#"><strong>Apple · Research Scientist </strong></a>
+                            <br>
                             <small>2023 – 2024</small>
                         </div>
                         <div class="col-md-9 e-r">
@@ -386,7 +418,8 @@
                     </div>
                     <div class="exp-item">
                         <div class="col-md-3 e-l">
-                            <strong>Apple · Research Scientist </strong><br>
+                            <a href="#"><strong>Apple · Research Scientist </strong></a>
+                            <br>
                             <small>2023 – 2024</small>
                         </div>
                         <div class="col-md-9 e-r">
@@ -558,9 +591,9 @@
     <div class="blog-list">
         <small>Blog</small>
         <ul class="list-unstyled mt-2">
-            <li class="mb-2"><small><strong>October 2025</strong> – You are welcome to attend my PhD seminar</small></li>
-            <li class="mb-2"><small><strong>November 2025</strong> – Selected to attend the 80% seminar</small></li>
-            <li><small><strong>December 2025</strong> – Welcome to attend my PhD</small></li>
+            <li class="mb-2"><small><strong>October 2025</strong> – <a href="#">You are welcome to attend my PhD seminar</a></small></li>
+            <li class="mb-2"><small><strong>November 2025</strong> – <a href="#">Selected to attend the 80% seminar</a></small></li>
+            <li><small><strong>December 2025</strong> – <a href="#">Welcome to attend my PhD</a></small></li>
         </ul>
     </div>
 </div>

@@ -1,0 +1,361 @@
+
+body{
+    background:#F0EEE9;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+    color:#333;
+}
+/* Sidebar */
+.sidebar{
+    min-height:100vh;
+    border-right:1px solid #0F4C81;
+    padding:30px 0px;
+    position:sticky;
+    top:0;
+    align-self:flex-start;
+}
+.logo{
+    padding: 0 20px 30px 20px;
+    border-bottom: 1px solid #0F4C81;
+    line-height:1;
+    display: flex;
+    justify-content: center;
+}
+.blog-list{
+    padding: 30px 20px 30px 20px;
+}
+.blog-list li a{
+    color: #0F4C81;
+    text-decoration: underline;
+}
+.introduce{
+    padding: 0 20px 30px 20px;
+    border-bottom: 1px solid #0F4C81;
+    color: #0F4C81;
+    font-size: 15px;
+    font-weight: 400;
+}
+.logo-img{
+    width:65%;
+    height:auto;
+    display:block;
+}
+.nav-link{
+    text-transform: uppercase;
+    color:#0F4C81;
+    padding: 3px 20px;
+    transition:.2s;
+}
+.nav-link.active{
+    border: 1px solid #0F4C81;
+    color:#0F4C81;
+    font-weight:600;
+}
+.nav-link:hover{
+    color:#0F4C81;
+}
+.blog-list small{
+    color:#3F6F9A;
+}
+/* Content */
+.content{
+    padding: 0;
+}
+section#about,#experience,#projects {
+    padding: 0 30px 30px 30px;
+    border-bottom: 1px solid #0F4C81;
+    margin-bottom: 30px !important;
+}
+section#about.section-collapsed , #experience.section-collapsed, #projects.section-collapsed{
+    padding-bottom: 0 !important;
+}
+
+
+/* Top header menu sticky */
+.top-menu{
+    padding-left: 30px !important;
+    position:sticky;
+    top:0;
+    z-index:50;
+    background: #F0EEE9;
+    margin-bottom: 30px !important;
+    padding:10px 0;
+    border-bottom:1px solid #0F4C81;
+}
+h2.section-title{
+    font-size:18px;
+    letter-spacing:1px;
+    color:#0F4C81;
+    padding-bottom:10px;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+}
+.section-title i{
+    transition:.3s ease;
+}
+.section-collapsed .section-title i{
+    transform:rotate(180deg);
+}
+.section-body{
+    overflow:hidden;
+    color: #0F4C81;
+}
+.section-body p{
+    color: #0F4C81;
+    font-size: 16px;
+    text-align: justify;
+}
+/* About */
+.about img{
+    /*max-width:200px;*/
+}
+/* Experience */
+.exp-item{
+    /*border-left:3px solid #0F4C81;*/
+    /*padding-left:15px;*/
+    margin-bottom:20px;
+    display: flex;
+}
+.exp-item a{
+    color: #0F4C81;
+    text-decoration: underline;
+    font-size: 17px;
+}
+.exp-item .col-md-3.e-l{
+    text-align: start;
+}
+/* Projects */
+.project-card{
+    overflow:hidden;
+    transition:.35s ease;
+}
+a{
+    text-decoration: none;
+}
+.project-card strong{
+    font-size: 17px;
+    text-decoration: underline;
+    color: #0F4C81;
+}
+.project-card p.first{
+    padding-top: 10px;
+}
+.project-card .p-3{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.project-card:hover{
+    transform:translateY(-6px);
+}
+.project-thumb{
+    position:relative;
+    overflow:hidden;
+}
+.project-thumb img{
+    width:100%;
+    transition:.4s ease;
+}
+.project-card:hover img{
+    transform:scale(1.08);
+}
+.play-btn{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    color:white;
+    background:rgba(0,0,0,.25);
+    opacity:0;
+    transition:.3s;
+}
+.project-card:hover .play-btn{
+    opacity:1;
+}
+#projects{
+    margin-bottom: 0 !important;
+}
+footer{
+    padding: 10px 30px;
+    font-size:16px;
+    color:#0F4C81;
+    justify-content: space-between;
+    align-items: center;
+    position:fixed;
+    bottom:0;
+    background: #F0EEE9;
+    z-index:60;
+    left:16.6666667%; /* đúng bằng col-lg-2 */
+    right:0;
+    border-top:1px solid #0F4C81;
+
+}
+footer p{
+    font-style: italic;
+    margin-bottom: 0;
+}
+footer .icon_social{
+    display: grid;
+    gap: 15px;
+    grid-auto-flow: column;
+}
+footer .icon_social svg {
+    width: 32px;
+    height: 32px;
+}
+
+main.content{
+    padding-bottom:60px;
+}
+
+/*hiệu ứng gradien sidebar*/
+@keyframes decoIn{
+    to{
+        opacity:1;
+        transform:scale(1) translateX(0);
+    }
+}
+.sidebar{
+    overflow:hidden;
+}
+
+.sidebar-deco{
+    z-index: -1;
+    position:absolute;
+    width:300px;
+    height: 350px;
+    opacity:0;
+    transform:scale(0.4) translateX(-60px);
+    animation:decoIn 1.2s ease-out forwards;
+    background: linear-gradient(178deg, rgba(238, 238, 238, 0.60) 32.85%, rgba(255, 190, 152, 0.60) 71.79%, rgba(255, 255, 243, 0.60) 110.73%);
+
+    filter: blur(125.75px);
+}
+.sidebar-deco.deco-top{
+    transform: rotate(133.7deg) !important;
+}
+.sidebar-deco.deco-bottom{
+    transform: rotate(165.105deg) !important;
+}
+
+.deco-top{
+    top:-60px;
+    left:-80px;
+    animation-delay:.2s;
+}
+
+.deco-bottom{
+    bottom:-100px;
+    left:-80px;
+    animation-delay:.4s;
+}
+
+
+
+/* ================= MOBILE ================= */
+@media (max-width: 991px){
+    /* hide desktop sidebar */
+    .sidebar{display:none;}
+    footer{
+        left:0;
+    }
+    .exp-item{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    /* offcanvas sidebar */
+    .mobile-sidebar{
+        position:fixed;
+        top:0; left:0;
+        width: 80%;
+        height:100vh;
+        background:linear-gradient(180deg,#f3e7d9,#f8f6f2);
+        z-index:2000;
+        transform:translateX(-100%);
+        transition:.35s ease;
+        padding:24px 20px;
+    }
+    .mobile-sidebar.active{transform:translateX(0);}
+    .mobile-overlay{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.35);
+        z-index:1999;
+        display:none;
+    }
+    .mobile-overlay.active{display:block;}
+
+    .sidebar{
+        position:relative;
+        min-height:auto;
+        border-right:none;
+        border-bottom:1px solid #e5e5e5;
+    }
+    .logo{
+        font-size:26px;
+        text-align:center;
+    }
+    .introduce{
+        padding: 0 20px 30px 0px;
+    }
+    .blog-list {
+        padding: 30px 20px 30px 0;
+    }
+    .mobile-sidebar .t_t{
+        border-bottom: 1px solid #0F4C81;
+    }
+    .logo{
+        border-bottom: unset;
+    }
+    .content{
+        padding:20px 16px;
+    }
+    .top-menu{
+        background: #F0EEE9;
+        display:flex;
+        justify-content:space-between;
+        gap:5px;
+        overflow-x:auto;
+        white-space:nowrap;
+        padding:10px 0px;
+        padding-left: 0 !important;
+    }
+    section#about, #experience, #projects{
+        padding: 0;
+    }
+    .section-body{
+        text-align: center;
+    }
+    .section-body p{
+        text-align: justify;
+    }
+    #projects .row.g-5 .col-md-4{
+        margin-top: 15px;
+    }
+    footer{
+        flex-wrap: wrap;
+        padding: 15px 0;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .top-menu .nav-link{
+        padding:6px 10px;
+        border-radius:20px;
+        background:#eee;
+        font-size:14px;
+    }
+    .top-menu .nav-link.active{
+        margin-right: 0 !important;
+        background:#0F4C81;
+        color:#fff;
+    }
+    h2.section-title{
+        font-size:16px;
+    }
+    .about img{
+        margin-bottom:12px;
+    }
+}

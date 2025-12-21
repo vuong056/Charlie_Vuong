@@ -163,9 +163,30 @@
                             </div>
                         </div>
                         <!-- Experiment picture - right side -->
-                        <div class="col-md-3 d-flex align-items-center justify-content-start">
+                        <!-- <div class="col-md-3 d-flex align-items-center justify-content-start">
                              <img src="img/project.svg" alt="Project showcase" class="img-fluid rounded shadow-sm" style="max-height: 280px; object-fit: cover; transform: translateY(-20px);">
                         </div>
+                         -->
+                        <div style="transform: translateY(-20px); text-align: center;">
+                            <img id="projectImg" src="img/hero_lab/Gathering-Hero-Lab-06-2025.png" alt="Project showcase" class="img-fluid rounded shadow-sm" style="max-height: 280px; object-fit: cover; transition: opacity 0.5s;">
+                            <small class="d-block text-muted mt-2">Hero Lab's gathering</small>
+                        </div>
+
+                        <script>
+                        const images = ['img/hero_lab/Gathering-Hero-Lab-06-2025.png', 'img/hero_lab/Paella-1.png', 'img/hero_lab/Paella-2.png'];
+                        let current = 0;
+                        const imgEl = document.getElementById('projectImg');
+
+                        setInterval(() => {
+                            imgEl.style.opacity = 0;
+                            setTimeout(() => {
+                                current = (current + 1) % images.length;
+                                imgEl.src = images[current];
+                                imgEl.style.opacity = 1;
+                            }, 500);
+                        }, 3000);
+                        </script>
+                      
                     </div>
                 </div>
             </section>

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Charlie Vuong — HCI researcher, maker, and sensing technologist." />
     <title>Charlie Vuong – Portfolio</title>
     
     <!-- Favicon -->
@@ -12,7 +11,7 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Accessible academic typography -->
+    <!-- Updated typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
@@ -23,7 +22,6 @@
     <!-- Animate on scroll -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="theme.css">
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,7 +29,6 @@
     <script type="module" src="main.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#main-content">Skip to main content</a>
 <div id="top"></div>
 <div class="container-fluid">
     <div class="row">
@@ -65,12 +62,12 @@
 
 
         <!-- Main content -->
-        <main class="col-md-9 col-lg-10 content" id="main-content">
+        <main class="col-md-9 col-lg-10 content">
 
             <!-- Top menu (above About) -->
             <nav class="nav mb-4 top-menu">
                 <!-- Mobile hamburger -->
-                <button class="btn d-lg-none me-2" id="openSidebar" type="button" aria-label="Open profile and news" aria-controls="mobileSidebar" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+                <button class="btn d-lg-none me-2" id="openSidebar"><i class="fa-solid fa-bars"></i></button>
                 <a class="nav-link me-4" href="#top">Home</a>
                 <a class="nav-link me-4" href="#about">About</a>
                 <a class="nav-link me-4" href="#experience">Experience</a>
@@ -79,11 +76,11 @@
 
             <!-- About -->
             <section id="about" style="scroll-margin-top:80px;" class="about mb-5 collapsible" data-aos="fade-up">
-                <h2 class="section-title" role="button" tabindex="0" aria-expanded="true" aria-controls="about-content">ABOUT <i class="fa-solid fa-angle-up" aria-hidden="true"></i></h2>
-                <div class="section-body" id="about-content">
+                <h2 class="section-title">ABOUT <i class="fa-solid fa-angle-up"></i></h2>
+                <div class="section-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="img/avatar.svg" alt="Portrait of Charlie Vuong" class="w-100" width="960" height="958">
+                            <img src="img/avatar.jpg" alt="profile" class="w-100">
                         </div>
                         <div class="col-md-9">
                             <p>
@@ -126,8 +123,8 @@
 
             <!-- Experience -->
             <section id="experience" class="mb-5 collapsible" data-aos="fade-up" data-aos-delay="100">
-                <h2 class="section-title" role="button" tabindex="0" aria-expanded="true" aria-controls="experience-content">EXPERIENCE <i class="fa-solid fa-angle-up" aria-hidden="true"></i></h2>
-                <div class="section-body" id="experience-content">
+                <h2 class="section-title">EXPERIENCE <i class="fa-solid fa-angle-up"></i></h2>
+                <div class="section-body">
                     <div class="row">
                         <!-- Experience entries - left side -->
                         <div class="col-md-8">
@@ -175,8 +172,8 @@
                         <!-- Experiment picture - right side -->
                         <div class="col-md-4 d-flex align-items-center justify-content-center">
                             <div class="text-center" style="transform: translateY(-20px);">
-                                <img src="img/project.svg" alt="Temporary research project image" class="img-fluid experience-image" width="297" height="297" loading="lazy">
-                                <small class="d-block experience-caption mt-2">Gathering with Hero Lab UCI research team</small>
+                                <img src="img/hero_lab/Gathering-Hero-Lab-06-2025_crop.png" alt="Project showcase" class="img-fluid rounded shadow-sm" style="max-height: 280px; object-fit: cover;">
+                                <small class="d-block text-muted mt-2">Gathering with Hero Lab UCI research team</small>
                             </div>
                         </div>
                     </div>
@@ -184,15 +181,15 @@
             </section>
             <!-- Projects -->
             <section id="projects" class="collapsible" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="section-title" role="button" tabindex="0" aria-expanded="true" aria-controls="projects-content">PROJECTS <i class="fa-solid fa-angle-up" aria-hidden="true"></i></h2>
-                <div class="section-body" id="projects-content">
+                <h2 class="section-title">PROJECTS <i class="fa-solid fa-angle-up"></i></h2>
+                <div class="section-body">
                     <div class="row g-5">
 
                         <div class="col-md-4">
                             <div class="project-card">
                                 <div class="project-thumb" style="height: 220px; overflow: hidden; background-color: #f5f5f5;">
                                     <a href="#">
-                                        <img src="img/project.svg" alt="" width="297" height="297" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                        <img src="img/hero_lab/spg.png" alt="project" style="width: 100%; height: 100%; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="p-3">
@@ -207,7 +204,7 @@
                             <div class="project-card">
                                 <div class="project-thumb" style="height: 220px; overflow: hidden; background-color: #f5f5f5;">
                                     <a href="https://dl.acm.org/doi/10.1145/3706598.3713835">
-                                        <img src="img/project.svg" alt="" width="297" height="297" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                        <img src="img/rheomap.png" alt="project" style="width: 100%; height: 100%; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="p-3">
@@ -222,7 +219,7 @@
                             <div class="project-card">
                                 <div class="project-thumb" style="height: 220px; overflow: hidden; background-color: #f5f5f5;">
                                     <a href="https://www.glassart.org/membership/conference-journals/">
-                                        <img src="img/project.svg" alt="" width="297" height="297" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                        <img src="img/neonbending.png_ha.png" alt="project" style="width: 100%; height: 100%; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="p-3">
@@ -237,7 +234,7 @@
                             <div class="project-card">
                                 <div class="project-thumb" style="height: 220px; overflow: hidden; background-color: #f5f5f5;">
                                     <a href="https://ieeexplore.ieee.org/document/9871884">
-                                        <img src="img/project.svg" alt="" width="297" height="297" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                        <img src="img/hero_lab/ECG_EnKF.png" alt="project" style="width: 100%; height: 100%; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="p-3">
@@ -252,7 +249,7 @@
                             <div class="project-card">
                                 <div class="project-thumb" style="height: 220px; overflow: hidden; background-color: #f5f5f5;">
                                     <a href="#">
-                                        <img src="img/project.svg" alt="" width="297" height="297" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                        <img src="img/hero_lab/rodent2.png" alt="project" style="width: 100%; height: 100%; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="p-3">
@@ -267,7 +264,7 @@
                             <div class="project-card">
                                 <div class="project-thumb" style="height: 220px; overflow: hidden; background-color: #f5f5f5;">
                                     <a href="https://doi.org/10.1115/DMD2020-9054">
-                                        <img src="img/project.svg" alt="" width="297" height="297" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                        <img src="img/Magicoil.png" alt="project" style="width: 100%; height: 100%; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="p-3">
@@ -288,34 +285,34 @@
                     Updated: Jan 2026
                 </p>
                 <div class="mt-2 icon_social">
-                    <a href="https://github.com/vuong056" aria-label="GitHub">
+                    <a href="https://github.com/vuong056">
                         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
                             <path d="M13.0272 7.7149C13.8724 7.97617 14.6762 8.33861 15.4178 8.79281C16.4657 8.54711 17.5434 8.42385 18.6251 8.42595C19.7422 8.42595 20.82 8.55374 21.8302 8.79178C22.5715 8.33802 23.3749 7.97593 24.2197 7.7149C25.0038 7.47067 26.1209 7.07495 26.7846 7.74788C27.2346 8.20542 27.3471 8.97212 27.427 9.55745C27.517 10.2108 27.5384 11.062 27.3021 11.907C28.2055 12.9757 28.75 14.2504 28.75 15.6395C28.75 17.7438 27.5058 19.5709 25.6642 20.8364C24.7775 21.4371 23.7946 21.9085 22.7504 22.2338C22.9912 22.7387 23.1251 23.2973 23.1251 23.8836V26.9751C23.1251 27.2485 23.0065 27.5106 22.7956 27.7038C22.5846 27.8971 22.2984 28.0057 22.0001 28.0057H15.2502C14.9518 28.0057 14.6657 27.8971 14.4547 27.7038C14.2437 27.5106 14.1252 27.2485 14.1252 26.9751V25.9539C13.0508 26.0745 12.1497 25.9673 11.3836 25.6695C10.5826 25.3583 10.0246 24.876 9.60498 24.4143C9.20674 23.9774 8.77249 22.9922 8.14475 22.8005C8.00455 22.7578 7.87492 22.6901 7.76325 22.6015C7.65159 22.5128 7.56008 22.4049 7.49396 22.2838C7.36041 22.0394 7.33835 21.7563 7.43263 21.4969C7.52692 21.2376 7.72982 21.0231 7.9967 20.9008C8.26359 20.7785 8.57259 20.7583 8.85574 20.8446C9.60498 21.0734 10.0932 21.5681 10.4273 21.9658C10.9673 22.6047 11.4061 23.4395 12.2611 23.7723C12.6132 23.9094 13.1296 23.999 13.9373 23.898L14.1252 23.863C14.1278 23.3022 14.2552 22.7478 14.4998 22.2338C13.4557 21.9085 12.4728 21.4371 11.5861 20.8364C9.74448 19.5709 8.50024 17.7449 8.50024 15.6395C8.50024 14.2525 9.04361 12.9787 9.94473 11.9111C9.70848 11.0661 9.72873 10.2129 9.81873 9.55848L9.82435 9.51933C9.90648 8.91957 10.0021 8.21367 10.4611 7.74788C11.1248 7.07495 12.2431 7.4717 13.0261 7.71593L13.0272 7.7149Z" fill="white"/>
                         </svg>
                     </a>
-                    <a href="https://www.linkedin.com/in/charlievuong056/" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/charlievuong056/">
                         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
                             <path d="M23.7999 9.3999C24.2773 9.3999 24.7351 9.58954 25.0727 9.92711C25.4103 10.2647 25.5999 10.7225 25.5999 11.1999V23.7999C25.5999 24.2773 25.4103 24.7351 25.0727 25.0727C24.7351 25.4103 24.2773 25.5999 23.7999 25.5999H11.1999C10.7225 25.5999 10.2647 25.4103 9.92711 25.0727C9.58954 24.7351 9.3999 24.2773 9.3999 23.7999V11.1999C9.3999 10.7225 9.58954 10.2647 9.92711 9.92711C10.2647 9.58954 10.7225 9.3999 11.1999 9.3999H23.7999ZM23.3499 23.3499V18.5799C23.3499 17.8018 23.0408 17.0555 22.4906 16.5053C21.9403 15.955 21.194 15.6459 20.4159 15.6459C19.6509 15.6459 18.7599 16.1139 18.3279 16.8159V15.8169H15.8169V23.3499H18.3279V18.9129C18.3279 18.2199 18.8859 17.6529 19.5789 17.6529C19.9131 17.6529 20.2336 17.7857 20.4699 18.0219C20.7062 18.2582 20.8389 18.5787 20.8389 18.9129V23.3499H23.3499ZM12.8919 14.4039C13.2929 14.4039 13.6775 14.2446 13.961 13.961C14.2446 13.6775 14.4039 13.2929 14.4039 12.8919C14.4039 12.0549 13.7289 11.3709 12.8919 11.3709C12.4885 11.3709 12.1016 11.5312 11.8164 11.8164C11.5312 12.1016 11.3709 12.4885 11.3709 12.8919C11.3709 13.7289 12.0549 14.4039 12.8919 14.4039ZM14.1429 23.3499V15.8169H11.6499V23.3499H14.1429Z" fill="white"/>
                         </svg>
 
                     </a>
-                    <a href="https://scholar.google.com/citations?hl=en&user=ofrGvP0AAAAJ" aria-label="Google Scholar">
+                    <a href="https://scholar.google.com/citations?hl=en&user=ofrGvP0AAAAJ">
                         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
                             <path d="M11.7979 18.9926L7.375 15.3906L17.5 7.375L27.625 15.3906L23.2021 18.9926C22.1811 16.8663 20.0127 15.3906 17.5 15.3906C14.9882 15.3906 12.8189 16.8655 11.7979 18.9926ZM17.5 15.8125C15.9336 15.8125 14.4313 16.4348 13.3237 17.5424C12.216 18.65 11.5938 20.1523 11.5938 21.7188C11.5938 23.2852 12.216 24.7875 13.3237 25.8951C14.4313 27.0027 15.9336 27.625 17.5 27.625C19.0664 27.625 20.5687 27.0027 21.6763 25.8951C22.784 24.7875 23.4062 23.2852 23.4062 21.7188C23.4062 20.1523 22.784 18.65 21.6763 17.5424C20.5687 16.4348 19.0664 15.8125 17.5 15.8125Z" fill="white"/>
                         </svg>
 
                     </a>
-                    <a href="mailto:hxv6892@mavs.uta.edu" aria-label="Email">
+                    <a href="mailto:hxv6892@mavs.uta.edu">
                         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
                             <path d="M25.0598 22.5625H23.1698V15.1797L17.4998 18.3438L11.8298 15.1797V22.5625H9.9398V12.4375H11.0738L17.4998 16.0234L23.9258 12.4375H25.0598M25.0598 10.75H9.9398C8.89085 10.75 8.0498 11.5009 8.0498 12.4375V22.5625C8.0498 23.0101 8.24893 23.4393 8.60337 23.7557C8.95782 24.0722 9.43855 24.25 9.9398 24.25H25.0598C25.5611 24.25 26.0418 24.0722 26.3962 23.7557C26.7507 23.4393 26.9498 23.0101 26.9498 22.5625V12.4375C26.9498 11.9899 26.7507 11.5607 26.3962 11.2443C26.0418 10.9278 25.5611 10.75 25.0598 10.75Z" fill="white"/>
                         </svg>
 
                     </a>
-                    <a href="https://docs.google.com/document/d/1-DpBK0FKELFJNZy_ADhKhxHIr6lmWM1M" aria-label="Curriculum vitae">
+                    <a href="https://docs.google.com/document/d/1-DpBK0FKELFJNZy_ADhKhxHIr6lmWM1M">
                         <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="35" height="35" rx="17.5" fill="#0F4C81"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M8.21875 17.5001C8.21875 16.0856 8.8752 14.729 10.0437 13.7288C11.2122 12.7287 12.797 12.1667 14.4495 12.1667H21.8341C22.997 12.1667 24.1123 12.5622 24.9345 13.266C25.7568 13.9698 26.2188 14.9245 26.2188 15.9198C26.2188 16.9152 25.7568 17.8698 24.9345 18.5737C24.1123 19.2775 22.997 19.6729 21.8341 19.6729H14.3175C13.6443 19.6729 12.9986 19.444 12.5226 19.0365C12.0465 18.629 11.7791 18.0764 11.7791 17.5001C11.7791 16.9238 12.0465 16.3711 12.5226 15.9637C12.9986 15.5562 13.6443 15.3272 14.3175 15.3272H21.5701C21.7537 15.3272 21.9298 15.3897 22.0597 15.5008C22.1895 15.6119 22.2624 15.7627 22.2624 15.9198C22.2624 16.077 22.1895 16.2277 22.0597 16.3389C21.9298 16.45 21.7537 16.5124 21.5701 16.5124H14.3175C14.0115 16.5124 13.718 16.6165 13.5016 16.8017C13.2852 16.9869 13.1637 17.2381 13.1637 17.5001C13.1637 17.762 13.2852 18.0132 13.5016 18.1985C13.718 18.3837 14.0115 18.4877 14.3175 18.4877H21.8341C22.6298 18.4877 23.3928 18.2172 23.9555 17.7356C24.5181 17.254 24.8341 16.6009 24.8341 15.9198C24.8341 15.2388 24.5181 14.5856 23.9555 14.1041C23.3928 13.6225 22.6298 13.3519 21.8341 13.3519H14.4495C13.1642 13.3519 11.9316 13.789 11.0228 14.5669C10.1139 15.3448 9.60337 16.3999 9.60337 17.5001C9.60337 18.6002 10.1139 19.6553 11.0228 20.4333C11.9316 21.2112 13.1642 21.6482 14.4495 21.6482H21.5701C21.7537 21.6482 21.9298 21.7107 22.0597 21.8218C22.1895 21.9329 22.2624 22.0837 22.2624 22.2408C22.2624 22.398 22.1895 22.5487 22.0597 22.6598C21.9298 22.771 21.7537 22.8334 21.5701 22.8334H14.4495C12.797 22.8334 11.2122 22.2715 10.0437 21.2713C8.8752 20.2711 8.21875 18.9146 8.21875 17.5001Z" fill="white"/>
@@ -333,12 +330,12 @@
 </div>
 
 <!-- Mobile sidebar (outside grid to avoid layout break) -->
-<aside class="mobile-sidebar d-lg-none" id="mobileSidebar" aria-label="Mobile profile and news" aria-hidden="true">
+<div class="mobile-sidebar d-lg-none" id="mobileSidebar">
     <div class="d-flex justify-content-between align-items-center mb-4 t_t">
         <div class="logo">
             <img src="img/logo.svg" alt="Charlie Vuong" class="logo-img">
         </div>
-        <button class="btn" id="closeSidebar" type="button" aria-label="Close profile and news"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        <button class="btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="introduce">
         <span>Hi! I’m a researcher, maker & sensing technologist.</span>
@@ -354,8 +351,8 @@
             <li><small><strong>May 2025</strong> – <a href="#">Attending my first CHI25 at Yokohama, Japan</a></small></li>
         </ul>
     </div>
-</aside>
-<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
 
 </body>
 </html>

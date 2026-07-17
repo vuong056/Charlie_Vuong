@@ -377,7 +377,7 @@ button:focus-visible {
   min-height: 32px;
   align-items: center;
   gap: .35rem;
-  margin-top: .15rem;
+  margin-top: .65rem;
   font-size: .9rem;
   font-weight: 700;
   text-decoration: underline;
@@ -476,11 +476,13 @@ button:focus-visible {
   .mobile-brand { display: inline-flex; align-items: center; }
   .about .col-md-3 {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
   .about .col-md-3 img {
     width: min(58vw, 220px) !important;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0;
   }
   .section-title {
     min-height: 44px;

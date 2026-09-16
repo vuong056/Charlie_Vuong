@@ -140,6 +140,21 @@
   line-height: 1.25;
 }
 
+.concept-project p.concept-project-award {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin: .4rem 0 0;
+  color: var(--concept-accent);
+  font-size: .8rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.concept-project-award i {
+  font-size: .85rem;
+}
+
 .concept-project p {
   margin: .6rem 0 1rem;
   color: #243746;

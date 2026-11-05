@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>RheoLiquid</title>
-<meta name="description" content="Explore fluid layers, coral growth, and particle motion through interactive simulations and guided experiments.">
+<meta name="description" content="Explore fluid layers and particle motion through interactive simulations and guided experiments.">
 <style>
   /* Single dark look: one full-screen liquid tank, a control dock on the left, one shared explainer dock on the right. */
   :root{--bg:#06070c;--panel:rgba(15,17,27,.82);--sheet:rgba(15,19,32,.97);--line:rgba(255,255,255,.09);--text:#e8ebf4;--mut:#8b92a9;--acc:#7aa2ff;
@@ -33,7 +33,7 @@
   button:hover{background:rgba(255,255,255,.11)}
   button.on{background:var(--acc);border-color:transparent;color:#0a0d18;font-weight:600}
   .icon{width:28px;height:28px;padding:0;display:grid;place-items:center}
-  .tabs,.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;margin-top:10px}
+  .seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;margin-top:10px}
   .desc{color:var(--mut);margin:8px 0 4px;font-size:12px}
   .label{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-top:10px}
   .seg{margin-top:5px}
@@ -138,18 +138,15 @@
   </filter>
 </svg>
 
-<div id="stage"><canvas id="g" aria-hidden="true"></canvas><canvas id="c" role="img" aria-label="Interactive liquid layers and coral random walks"></canvas><canvas id="o" aria-hidden="true"></canvas></div>
+<div id="stage"><canvas id="g" aria-hidden="true"></canvas><canvas id="c" role="img" aria-label="Interactive liquid layers and particle motion"></canvas><canvas id="o" aria-hidden="true"></canvas></div>
 
 <div class="panel" id="panel">
   <a class="portfolio-link" href="./#projects">← Back to projects</a>
   <div class="head"><div class="title">RheoLiquid</div><button class="icon" id="collapse" title="Hide panel" aria-label="Hide controls" aria-expanded="true">–</button></div>
   <div class="body">
-    <div class="tabs" id="tabs">
-      <button data-mode="layers" class="on">Layers</button><button data-mode="coral">Coral</button>
-    </div>
     <p class="desc" id="desc"></p>
 
-    <section data-for="layers">
+    <section>
       <label class="slider"><span>Random walk strength</span><output id="tempOut"></output>
         <input id="temp" type="range" min="0" max="3" step="0.01" value="0.35"></label>
       <p class="walk-note" id="walkReadout"></p>
@@ -172,12 +169,6 @@
       <div class="swatches" id="swatches" hidden></div>
     </section>
 
-    <section data-for="coral" hidden>
-      <label class="slider"><span>Stickiness</span><output id="stickOut"></output>
-        <input id="stick" type="range" min="0.03" max="1" step="0.01" value="1"></label>
-      <div class="row"><button id="resetC">Clear</button></div>
-    </section>
-
     <div class="gravity">
       <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Gravity direction" aria-valuemin="0" aria-valuemax="359" aria-valuenow="90" title="Drag or use arrow keys to aim gravity"><div class="arrow" id="arrow"></div></div>
       <div class="gcol">
@@ -187,15 +178,10 @@
     </div>
 
     <details class="more" id="more"><summary>More options</summary>
-      <section data-for="layers">
+      <section>
         <label class="check"><input type="checkbox" id="paths"> Show particle trails</label>
         <label class="check"><input type="checkbox" id="goo" checked> Smooth liquid look</label>
         <div class="row"><button id="flip">Flip gravity</button><button id="shake">Shake</button></div>
-      </section>
-      <section data-for="coral" hidden>
-        <label class="slider"><span>Pull (follows the gravity arrow)</span><output id="biasOut"></output>
-          <input id="bias" type="range" min="0" max="0.6" step="0.01" value="0"></label>
-        <div class="row"><button id="floor">Seed the floor</button></div>
       </section>
       <label class="slider"><span>Gravity strength</span><output id="gmagOut"></output>
         <input id="gmag" type="range" min="0" max="2" step="0.01" value="1"></label>
@@ -210,8 +196,7 @@
   <div class="head"><strong class="lp-title">Learn by playing</strong><button id="learnClose" class="icon" aria-label="Close learning panel">×</button></div>
   <nav class="lesson-tabs" aria-label="Choose an experiment">
     <button data-lesson="0" aria-pressed="true">1 · Liquid</button>
-    <button data-lesson="1" aria-pressed="false">2 · Coral</button>
-    <button data-lesson="2" aria-pressed="false">3 · Paths</button>
+    <button data-lesson="1" aria-pressed="false">2 · Paths</button>
   </nav>
   <h2 id="lessonTitle"></h2>
   <div class="question"><span class="eyebrow">GUESS</span><p id="lessonQuestion"></p></div>
@@ -219,7 +204,7 @@
   <div class="lesson-actions" id="lessonActions"></div>
   <p id="lessonStatus" role="status"></p>
   <details id="lessonDetails"><summary>Why?</summary><p id="lessonWhy"></p></details>
-  <div class="lesson-footer"><button id="lessonBack">Previous</button><span id="lessonCount">1 of 3</span><button id="lessonNext">Next experiment</button></div>
+  <div class="lesson-footer"><button id="lessonBack">Previous</button><span id="lessonCount">1 of 2</span><button id="lessonNext">Next experiment</button></div>
 </aside>
 
 
@@ -440,68 +425,6 @@ function createLiquid(W, H, opt){
 }
 //SIM-END
 
-/* ---------- Coral: diffusion-limited aggregation ---------- */
-function createCoral(W, H, DPR){
-  const cs=3, gw=Math.floor(W/cs), gh=Math.floor(H/cs), grid=new Uint8Array(gw*gh);
-  const layer=document.createElement('canvas'); layer.width=Math.round(W*DPR); layer.height=Math.round(H*DPR);
-  const lc=layer.getContext('2d'); lc.setTransform(DPR,0,0,DPR,0,0);
-  let count=0, minX=gw, minY=gh, maxX=-1, maxY=-1;
-  const K=700, ITER=60, WX=new Int32Array(K).fill(-1), WY=new Int32Array(K);
-  function occupy(cx,cy){
-    if(cx<0||cy<0||cx>=gw||cy>=gh) return;
-    const k=cy*gw+cx; if(grid[k]) return;
-    grid[k]=1; count++;
-    if(cx<minX)minX=cx; if(cx>maxX)maxX=cx; if(cy<minY)minY=cy; if(cy>maxY)maxY=cy;
-    lc.fillStyle=`hsl(${(190+count*0.03)%360},85%,63%)`;
-    lc.fillRect(cx*cs,cy*cs,cs,cs);
-  }
-  function seed(x,y){ const cx=(x/cs)|0, cy=(y/cs)|0; for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++) occupy(cx+dx,cy+dy); }
-  function floor(){ for(let x=0;x<gw;x++) occupy(x,gh-1); }
-  function box(m){ return [Math.max(0,minX-m), Math.max(0,minY-m), Math.min(gw-1,maxX+m), Math.min(gh-1,maxY+m)]; }
-  function spawn(k){
-    WX[k]=-1; if(maxX<0) return;
-    const [x0,y0,x1,y1]=box(14), pw=x1-x0, ph=y1-y0;
-    for(let tries=0;tries<6;tries++){
-      let t=Math.random()*2*(pw+ph), x, y;
-      if(t<pw){x=x0+t;y=y0;} else if((t-=pw)<ph){x=x1;y=y0+t;} else if((t-=ph)<pw){x=x1-t;y=y1;} else {t-=pw;x=x0;y=y1-t;}
-      x|=0; y|=0;
-      if(!grid[y*gw+x]){ WX[k]=x; WY[k]=y; return; }
-    }
-  }
-  function touching(x,y){
-    for(let dy=-1;dy<=1;dy++){ const yy=y+dy; if(yy<0||yy>=gh) continue;
-      for(let dx=-1;dx<=1;dx++){ const xx=x+dx; if(xx<0||xx>=gw||(!dx&&!dy)) continue; if(grid[yy*gw+xx]) return true; } }
-    return false;
-  }
-  function step(P){
-    const ax=Math.abs(P.gx), ay=Math.abs(P.gy), px=ax/((ax+ay)||1), sx=Math.sign(P.gx), sy=Math.sign(P.gy);
-    const [kx0,ky0,kx1,ky1]=box(40);
-    for(let k=0;k<K;k++){
-      if(WX[k]<0){ spawn(k); if(WX[k]<0) continue; }
-      let x=WX[k], y=WY[k];
-      for(let it=0;it<ITER;it++){
-        let dx=0, dy=0;
-        if(P.bias>0 && Math.random()<P.bias){ if(Math.random()<px) dx=sx; else dy=sy; }
-        else { const r=(Math.random()*4)|0; if(r===0)dx=1; else if(r===1)dx=-1; else if(r===2)dy=1; else dy=-1; }
-        const nx=x+dx, ny=y+dy;
-        if(nx<kx0||nx>kx1||ny<ky0||ny>ky1){ x=-1; break; }
-        if(grid[ny*gw+nx]) continue;
-        x=nx; y=ny;
-        if(touching(x,y) && Math.random()<P.stick){ occupy(x,y); x=-1; break; }
-      }
-      WX[k]=x; WY[k]=y;
-    }
-  }
-  function render(ctx){
-    ctx.clearRect(0,0,W,H);
-    ctx.drawImage(layer,0,0,W,H);
-    ctx.fillStyle='rgba(170,195,255,0.4)';
-    for(let k=0;k<K;k++) if(WX[k]>=0) ctx.fillRect(WX[k]*cs+0.5,WY[k]*cs+0.5,1.6,1.6);
-  }
-  seed(W/2,H/2);
-  return { seed, floor, step, render, get n(){ return count; } };
-}
-
 /* ---------- Gooey liquid renderer (WebGL metaballs) ----------
    Pass 1 splats every particle as a soft kernel into two half-resolution textures:
    each RGBA channel holds how much of one liquid is nearby (texture A: liquids 1-4,
@@ -630,19 +553,12 @@ const MIN_LAYERS=2, MAX_LAYERS=6;
 let COLORS=[], GLCOLORS=[];
 const setText=(el,s)=>{ if(el.textContent!==s) el.textContent=s; };
 
-const DESC={
-  layers:'Heavier liquids sink, lighter ones float. Gravity sorts the layers; tiny random steps blur them.',
-  coral:'Wanderers step randomly until they touch the coral, then freeze. Branches grow from that one rule.'
-};
-const HINT={
-  layers:'Drag to stir or pour<span class="kb"> · aim gravity with the dial or <kbd>←</kbd> <kbd>→</kbd> · <kbd>F</kbd> flips · <kbd>S</kbd> shakes</span><span class="tch"> · tap + to set up the tank</span>',
-  coral:'Click, tap or drag to plant seeds<span class="kb"> · wanderers freeze when they touch the coral</span>'
-};
+const DESC='Heavier liquids sink, lighter ones float. Gravity sorts the layers; tiny random steps blur them.';
+const HINT='Drag to stir or pour<span class="kb"> · aim gravity with the dial or <kbd>←</kbd> <kbd>→</kbd> · <kbd>F</kbd> flips · <kbd>S</kbd> shakes</span><span class="tch"> · tap + to set up the tank</span>';
 
-const st={mode:'layers', tool:'stir', pour:0, temp:0.35, paused:matchMedia('(prefers-reduced-motion: reduce)').matches, paths:false, inspect:false, slowParticle:false, goo:true, layers:3, start:'flipped', count:null, custom:{}, gAngle:Math.PI/2, gMag:1, tilt:null,
-          stick:1, bias:0};
+const st={tool:'stir', pour:0, temp:0.35, paused:matchMedia('(prefers-reduced-motion: reduce)').matches, paths:false, inspect:false, slowParticle:false, goo:true, layers:3, start:'flipped', count:null, custom:{}, gAngle:Math.PI/2, gMag:1, tilt:null};
 const ptr={x:0,y:0,dx:0,dy:0,vx:0,vy:0,down:false,in:false};
-let W=0,H=0,DPR=1, liquid=null, coral=null;
+let W=0,H=0,DPR=1, liquid=null;
 let trails=[], singleStep=false, accumulator=0;
 let lessonIndex=0;
 const pathLesson={active:false,running:false,phase:'intro',snapshot:null,index:-1,target:240,trial:'off',off:null,on:null};
@@ -656,37 +572,30 @@ function gravity(){
 
 function resize(){
   W=innerWidth; H=innerHeight; DPR=Math.min(devicePixelRatio||1, 2);
-  const d = st.mode==='layers' && !gooGL ? 1 : DPR;   // the SVG fallback filter blurs anyway; keep it cheap
+  const d = !gooGL ? 1 : DPR;   // the SVG fallback filter blurs anyway; keep it cheap
   for(const c of [cv,ov]){ c.width=Math.round(W*d); c.height=Math.round(H*d); }
   ctx.setTransform(d,0,0,d,0,0); octx.setTransform(d,0,0,d,0,0);
   if(gooGL) gooGL.resize(W,H,DPR);
   build();
 }
-function useGL(){ return !!gooGL && !gooGL.lost && st.mode==='layers' && st.goo; }
+function useGL(){ return !!gooGL && !gooGL.lost && st.goo; }
 function applyRenderMode(){
   glc.hidden=!useGL();
   if(gooGL && glc.hidden) gooGL.clear();
-  cv.classList.toggle('goo', st.mode==='layers' && st.goo && !useGL());
+  cv.classList.toggle('goo', st.goo && !useGL());
 }
 function build(){
   clearGuideRun();
   trails=[]; accumulator=0;
-  if(st.mode==='layers'){
-    const count = st.count || autoCount();
-    liquid=createLiquid(W,H,{count, layers:st.layers, start:st.start});
-    $('#count').value=count; $('#countOut').textContent=count.toLocaleString();
-    resetParticleTracking();
-    $('#gooBlur').setAttribute('stdDeviation', (liquid.s*0.45).toFixed(1));
-  } else {
-    coral=createCoral(W,H,DPR);
-  }
+  const count = st.count || autoCount();
+  liquid=createLiquid(W,H,{count, layers:st.layers, start:st.start});
+  $('#count').value=count; $('#countOut').textContent=count.toLocaleString();
+  resetParticleTracking();
+  $('#gooBlur').setAttribute('stdDeviation', (liquid.s*0.45).toFixed(1));
 }
 
-function setMode(m){
-  st.mode=m;
-  document.querySelectorAll('#tabs button').forEach(b=>{b.classList.toggle('on',b.dataset.mode===m);b.setAttribute('aria-pressed',b.dataset.mode===m);});
-  document.querySelectorAll('section[data-for]').forEach(s=>s.hidden=s.dataset.for!==m);
-  $('#desc').textContent=DESC[m]; $('#hint').innerHTML=HINT[m]; $('#hint').classList.remove('faded');
+function resetSimulation(){
+  $('#desc').textContent=DESC; $('#hint').innerHTML=HINT; $('#hint').classList.remove('faded');
   applyRenderMode();
   ctx.clearRect(0,0,W,H);
   resize();
@@ -700,11 +609,8 @@ function bindRange(id, key, fmt){
   el.addEventListener('input',upd); upd();
 }
 bindRange('temp','temp',v=>Math.round(v/3*100)+'%');
-bindRange('stick','stick',v=>Math.round(v*100)+'%');
-bindRange('bias','bias',v=>v.toFixed(2));
 bindRange('gmag','gMag',v=>v.toFixed(2)+' g');
 
-$('#tabs').addEventListener('click',e=>{ const m=e.target.dataset.mode; if(m && m!==st.mode) setMode(m); });
 $('#tools').addEventListener('click',e=>{
   const t=e.target.dataset.tool; if(!t) return; st.tool=t;
   document.querySelectorAll('#tools button').forEach(b=>{b.classList.toggle('on',b.dataset.tool===t);b.setAttribute('aria-pressed',b.dataset.tool===t);});
@@ -734,16 +640,16 @@ function renderTank(){
   }));
   $('#layerOut').textContent=st.layers; $('#layerLess').disabled=st.layers<=MIN_LAYERS; $('#layerMore').disabled=st.layers>=MAX_LAYERS;
 }
-function setLayers(nl){ nl=Math.max(MIN_LAYERS,Math.min(MAX_LAYERS,nl)); if(nl===st.layers)return; st.layers=nl; renderTank(); if(st.mode==='layers')build(); }
+function setLayers(nl){ nl=Math.max(MIN_LAYERS,Math.min(MAX_LAYERS,nl)); if(nl===st.layers)return; st.layers=nl; renderTank(); build(); }
 function setStart(m,rebuild=true){
   st.start=m; document.querySelectorAll('#startMode button').forEach(b=>{b.classList.toggle('on',b.dataset.start===m);b.setAttribute('aria-pressed',b.dataset.start===m);});
-  if(rebuild&&st.mode==='layers')build();
+  if(rebuild)build();
 }
 $('#layerLess').onclick=()=>setLayers(st.layers-1);
 $('#layerMore').onclick=()=>setLayers(st.layers+1);
 $('#startMode').addEventListener('click',e=>{ const m=e.target.dataset.start; if(m)setStart(m); });
 $('#count').addEventListener('input',e=>{ $('#countOut').textContent=(+e.target.value).toLocaleString(); });
-$('#count').addEventListener('change',e=>{ st.count=+e.target.value; if(st.mode==='layers')build(); });
+$('#count').addEventListener('change',e=>{ st.count=+e.target.value; build(); });
 renderTank();
 $('#paths').onchange=e=>{st.paths=e.target.checked;trails=[];};
 function pauseUI(){ $('#inspectorPlay').textContent=st.paused?'Play':'Pause'; $('#pause').textContent=st.paused?'Play':'Pause';$('#pause').setAttribute('aria-pressed',st.paused);$('#step').hidden=!st.paused; }
@@ -754,8 +660,6 @@ $('#goo').onchange=e=>{ st.goo=e.target.checked; applyRenderMode(); };
 $('#flip').onclick=()=>{ if(st.tilt) return; st.gAngle+=Math.PI; };
 $('#shake').onclick=()=>liquid&&liquid.shake();
 $('#resetL').onclick=()=>build();
-$('#resetC').onclick=()=>build();
-$('#floor').onclick=()=>coral&&coral.floor();
 $('#collapse').onclick=()=>{ const p=$('#panel'); p.classList.toggle('min'); const collapsed=p.classList.contains('min');$('#collapse').textContent=collapsed?'+':'–';$('#collapse').setAttribute('aria-expanded',!collapsed);$('#collapse').setAttribute('aria-label',collapsed?'Show controls':'Hide controls'); };
 
 // gravity dial
@@ -796,9 +700,8 @@ addEventListener('keydown',e=>{
   if(k==='arrowleft'){ st.gAngle-=Math.PI/12; st.tilt=null; }
   else if(k==='arrowright'){ st.gAngle+=Math.PI/12; st.tilt=null; }
   else if(k==='f') st.gAngle+=Math.PI;
-  else if(k==='s') liquid&&st.mode==='layers'&&liquid.shake();
+  else if(k==='s') liquid&&liquid.shake();
   else if(k==='r') build();
-  else if(k==='1') setMode('layers'); else if(k==='2') setMode('coral');
 });
 
 /* ---- pointer ---- */
@@ -806,11 +709,9 @@ stage.addEventListener('pointerdown',e=>{
   stage.setPointerCapture(e.pointerId);
   $('#hint').classList.add('faded');
   ptr.down=true; ptr.x=e.clientX; ptr.y=e.clientY; ptr.dx=ptr.dy=ptr.vx=ptr.vy=0; ptr.in=true;
-  if(st.mode==='coral') coral.seed(ptr.x,ptr.y);
 });
 stage.addEventListener('pointermove',e=>{
   ptr.dx+=e.clientX-ptr.x; ptr.dy+=e.clientY-ptr.y; ptr.x=e.clientX; ptr.y=e.clientY; ptr.in=true;
-  if(ptr.down && st.mode==='coral') coral.seed(ptr.x,ptr.y);
 });
 const up=()=>{ ptr.down=false; };
 stage.addEventListener('pointerup',up); stage.addEventListener('pointercancel',up);
@@ -822,11 +723,6 @@ const LESSONS=[
   steps:['Press Walk off. Watch gravity sort.','Press Walk on, then stir.'],
   actions:['Walk off · 0%','Walk on · 100%'],
   why:'Yes, and often faster. Random steps help stuck particles slip past each other. Strong steps keep the borders fuzzy.'},
- {title:'Random steps build a shape',
-  question:'If walkers rarely stick, how does the coral change?',
-  steps:['Press Sticky. Watch the tips.','Press Less sticky. Compare.'],
-  actions:['Sticky · 100%','Less sticky · 10%'],
-  why:'Tips stick out, so walkers hit them first: thin branches. Slippery walkers sneak inside first: a denser coral.'},
  {title:'Two paths, one particle',
   question:'With random steps off, can a particle still move?',
   steps:['Press Open, then run both trials.'],
@@ -849,19 +745,13 @@ function guideMessage(text){$('#lessonStatus').textContent=text;}
 function clearGuideRun(){cancelPathLesson();}
 function guideOpen(open){$('#learnPanel').hidden=!open;inspectorVisibility();$('#learnToggle').setAttribute('aria-expanded',open);if(open&&innerWidth<=760&&!$('#panel').classList.contains('min'))$('#collapse').click();}
 function startLessonAction(action){
-  if(lessonIndex===2){openPathLesson();return;}
+  if(lessonIndex===1){openPathLesson();return;}
   ptr.down=false;singleStep=false;
   st.tilt=null;tiltBtn(false);st.gAngle=Math.PI/2;guideRange('gmag',1);
-  if(lessonIndex===0){
-    if(action===0)setStart('mixed',false);
-    if(st.mode!=='layers'||action===0)setMode('layers');
-    guideRange('temp',action===0?0:3);st.paths=true;$('#paths').checked=true;
-    st.tool='stir';$('#tools [data-tool="stir"]').click();
-    guideMessage(action===0?'Walk off. Watch the layers sort.':'Walk on. Same tank, now jiggling. Try stirring.');
-  }else{
-    setMode('coral');guideRange('bias',0);guideRange('stick',action===0?1:.1);
-    guideMessage(action===0?'Growing. Watch the tips.':'Growing slowly. Give it a moment.');
-  }
+  if(action===0){setStart('mixed',false);resetSimulation();}
+  guideRange('temp',action===0?0:3);st.paths=true;$('#paths').checked=true;
+  st.tool='stir';$('#tools [data-tool="stir"]').click();
+  guideMessage(action===0?'Walk off. Watch the layers sort.':'Walk on. Same tank, now jiggling. Try stirring.');
   st.paused=false;accumulator=0;pauseUI();
 }
 $('#learnToggle').onclick=()=>guideOpen($('#learnPanel').hidden);
@@ -870,12 +760,12 @@ document.querySelectorAll('[data-lesson]').forEach(b=>b.onclick=()=>showLesson(+
 $('#lessonBack').onclick=()=>showLesson(Math.max(0,lessonIndex-1));
 $('#lessonNext').onclick=()=>showLesson(Math.min(LESSONS.length-1,lessonIndex+1));
 $('#panel').addEventListener('input',e=>{ if(e.target.type!=='color')clearGuideRun(); });
-$('#panel').addEventListener('click',e=>{if(e.target.closest('#resetL,#resetC,#floor'))clearGuideRun();if(e.target.closest('#collapse')&&innerWidth<=760&&!$('#panel').classList.contains('min'))guideOpen(false);});
+$('#panel').addEventListener('click',e=>{if(e.target.closest('#resetL'))clearGuideRun();if(e.target.closest('#collapse')&&innerWidth<=760&&!$('#panel').classList.contains('min'))guideOpen(false);});
 stage.addEventListener('pointerdown',clearGuideRun);
 showLesson(0);
 
 $('#step').addEventListener('click',clearGuideRun);
-addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','f','r','1','2','3'].includes(e.key))clearGuideRun();});
+addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','f','r'].includes(e.key))clearGuideRun();});
 // The random-only path sums the exact sampled increments, not another RNG.
 // Both traces start at the same recorded physical position. Adaptive sampling
 // bounds drawing memory; totals and the newest endpoint retain every step.
@@ -906,7 +796,7 @@ function cancelPathLesson(){
   if(pathLesson.active){st.paused=true;accumulator=0;pauseUI();$('#pathLessonResult').textContent='You changed something mid-run. Start again for a fair comparison.';pathLessonUI();}
 }
 function openPathLesson(){
-  clearGuideRun();if(st.mode!=='layers')setMode('layers');
+  clearGuideRun();
   st.inspect=true;$('#inspectParticle').checked=true;guideOpen(false);
   pathLesson.active=true;pathLesson.running=false;pathLesson.snapshot=null;pathLesson.phase='intro';
   st.paused=true;accumulator=0;pauseUI();$('#pathLessonResult').textContent='';pathLessonUI();inspectorVisibility();
@@ -923,7 +813,7 @@ function runPathTrial(){
     pathLesson.snapshot=null;ptr.down=false;ptr.in=false;ptr.dx=ptr.dy=ptr.vx=ptr.vy=0;
     st.tilt=null;tiltBtn(false);st.gAngle=Math.PI/2;guideRange('gmag',1);guideRange('temp',0);
     st.slowParticle=false;$('#slowParticle').checked=false;st.tool='stir';$('#tools [data-tool="stir"]').click();
-    setMode('layers');st.inspect=true;$('#inspectParticle').checked=true;
+    resetSimulation();st.inspect=true;$('#inspectParticle').checked=true;
     pathLesson.index=tracked.index;pathLesson.snapshot=snapshotLiquid(liquid);pathLesson.off=null;pathLesson.on=null;
     pathLesson.trial='off';resetTrialPaths();
   }else if(pathLesson.phase==='off'){
@@ -1015,7 +905,7 @@ function resetParticleTracking(){
   for(let i=0;i<liquid.n;i++){const d=(liquid.X[i]-W*.5)**2+(liquid.Y[i]-H*.65)**2;if(d<best){best=d;tracked.index=i;}}
 }
 function inspectorVisibility(){
-  $('#particleInspector').hidden=st.mode!=='layers'||!st.inspect||!$('#learnPanel').hidden;
+  $('#particleInspector').hidden=!st.inspect||!$('#learnPanel').hidden;
   $('#inspectParticle').checked=st.inspect;
 }
 function captureParticle(sample){
@@ -1070,7 +960,7 @@ $('#nextParticleStep').onclick=()=>{clearGuideRun();st.paused=true;singleStep=fa
 $('#slowParticle').onchange=e=>{st.slowParticle=e.target.checked;accumulator=0;};
 $('#pickParticle').onclick=()=>{tracked.picking=!tracked.picking;$('#pickParticle').setAttribute('aria-pressed',tracked.picking);$('#particleStatus').textContent=tracked.picking?'Click or tap the liquid to follow the nearest particle.':'Selection cancelled.';};
 stage.addEventListener('pointerdown',e=>{
-  if(!tracked.picking||st.mode!=='layers')return;
+  if(!tracked.picking)return;
   e.preventDefault();e.stopImmediatePropagation();let best=Infinity;
   for(let i=0;i<liquid.n;i++){const d=(liquid.X[i]-e.clientX)**2+(liquid.Y[i]-e.clientY)**2;if(d<best){best=d;tracked.index=i;}}
   tracked.last=null;tracked.path=[];tracked.count=0;tracked.comparison=null;tracked.picking=false;ptr.down=false;
@@ -1081,9 +971,9 @@ stage.addEventListener('pointerdown',e=>{
 let last=performance.now(), fpsAvg=60, slow=0, uiAt=0, cvClean=false;
 function frame(t){
   const dt=Math.max(0,Math.min(100,t-last)); last=t;
-  if(!st.paused)accumulator+=dt*(st.mode==='layers'&&st.slowParticle?.1:1);
+  if(!st.paused)accumulator+=dt*(st.slowParticle?.1:1);
   // Cap catch-up work per frame so one slow frame cannot snowball into the next.
-  const maxTicks=st.mode==='layers'?3:5;
+  const maxTicks=3;
   let ticks=st.paused?(singleStep?1:0):Math.min(maxTicks,Math.floor(accumulator/FIXED_MS));
   if(st.paused)accumulator=0;else accumulator=Math.min(FIXED_MS,Math.max(0,accumulator-ticks*FIXED_MS));
   const uiTick=t-uiAt>250; if(uiTick)uiAt=t;
@@ -1093,53 +983,47 @@ function frame(t){
   const g=gravity();
   octx.clearRect(0,0,W,H);
 
-  if(st.mode==='layers'){
-    const SUB=2, s=liquid.s, cap=s*1.5;
-    let brush=null;
-    if(ptr.down && st.tool!=='pour'){
-      const vx=Math.max(-cap,Math.min(cap,ptr.vx/SUB)), vy=Math.max(-cap,Math.min(cap,ptr.vy/SUB));
-      brush={x:ptr.x,y:ptr.y,r:s*5,vx,vy,tool:st.tool};
-    }
-    if(ticks && ptr.down && st.tool==='pour'){
-      for(let k=0;k<4*ticks;k++){ const a=Math.random()*6.283, r=Math.random()*s*1.5;
-        liquid.add(ptr.x+Math.cos(a)*r, ptr.y+Math.sin(a)*r, st.pour, ptr.vx*0.15, ptr.vy*0.15); }
-    }
-    let liquidSteps=tracked.pending?1:SUB*ticks;tracked.pending=false;
-    if(pathLesson.running)liquidSteps=Math.min(liquidSteps,pathLesson.target-(tracked.comparison?.steps||0));
-    for(let k=0;k<liquidSteps;k++){captureParticle(liquid.step({gx:g.x,gy:g.y,temp:st.temp,brush,track:st.inspect?tracked.index:-1}));updatePathTrial();}
-    if(st.paths){
-      for(let j=0;j<12;j++){
-        const i=Math.min(liquid.n-1,Math.floor((j+.5)*liquid.n/12));
-        const trail=trails[j]||(trails[j]=[]);
-        if(ticks){trail.push([liquid.X[i],liquid.Y[i]]);if(trail.length>90)trail.shift();}
-        octx.strokeStyle=COLORS[liquid.T[i]];octx.lineWidth=1.5;octx.beginPath();
-        trail.forEach(([x,y],k)=>k?octx.lineTo(x,y):octx.moveTo(x,y));octx.stroke();
-        octx.strokeStyle='rgba(255,255,255,.9)';octx.beginPath();octx.arc(liquid.X[i],liquid.Y[i],3,0,Math.PI*2);octx.stroke();
-      }
-    }
-    const stepPx=st.temp*s*.08;
-    setText($('#walkReadout'),stepPx>0?`Each step: ${stepPx.toFixed(2)} px in a random direction, 120× a second.`:'Random steps off: only gravity and your hand move the liquid.');
-    if(useGL()){
-      if(!cvClean){ctx.clearRect(0,0,W,H);cvClean=true;}
-      gooGL.draw(liquid,GLCOLORS);
-    }else{
-      ctx.clearRect(0,0,W,H);cvClean=false;
-      liquid.render(ctx,COLORS,st.goo);
-    }
-    drawTrackedParticle(t);
-    if(ptr.in){
-      const col='255,255,255';
-      octx.strokeStyle=`rgba(${col},${ptr.down?0.55:0.25})`; octx.lineWidth=1.5;
-      octx.beginPath(); octx.arc(ptr.x,ptr.y,st.tool==='pour'?s*1.5:s*5,0,6.2832); octx.stroke();
-    }
-    if(uiTick)setText($('#stats'),`${liquid.n.toLocaleString()} particles`);
-    // auto-fallback if the SVG goo filter (used only without WebGL) is too slow on this machine
-    if(!useGL() && st.goo && fpsAvg<24){ if(++slow>180){ st.goo=false; $('#goo').checked=false; applyRenderMode(); } } else slow=0;
-  } else {
-    for(let k=0;k<ticks;k++)coral.step({gx:g.x,gy:g.y,stick:st.stick,bias:st.bias*Math.min(1,st.gMag)});
-    coral.render(ctx);
-    if(uiTick)setText($('#stats'),`${coral.n.toLocaleString()} frozen cells`);
+  const SUB=2, s=liquid.s, cap=s*1.5;
+  let brush=null;
+  if(ptr.down && st.tool!=='pour'){
+    const vx=Math.max(-cap,Math.min(cap,ptr.vx/SUB)), vy=Math.max(-cap,Math.min(cap,ptr.vy/SUB));
+    brush={x:ptr.x,y:ptr.y,r:s*5,vx,vy,tool:st.tool};
   }
+  if(ticks && ptr.down && st.tool==='pour'){
+    for(let k=0;k<4*ticks;k++){ const a=Math.random()*6.283, r=Math.random()*s*1.5;
+      liquid.add(ptr.x+Math.cos(a)*r, ptr.y+Math.sin(a)*r, st.pour, ptr.vx*0.15, ptr.vy*0.15); }
+  }
+  let liquidSteps=tracked.pending?1:SUB*ticks;tracked.pending=false;
+  if(pathLesson.running)liquidSteps=Math.min(liquidSteps,pathLesson.target-(tracked.comparison?.steps||0));
+  for(let k=0;k<liquidSteps;k++){captureParticle(liquid.step({gx:g.x,gy:g.y,temp:st.temp,brush,track:st.inspect?tracked.index:-1}));updatePathTrial();}
+  if(st.paths){
+    for(let j=0;j<12;j++){
+      const i=Math.min(liquid.n-1,Math.floor((j+.5)*liquid.n/12));
+      const trail=trails[j]||(trails[j]=[]);
+      if(ticks){trail.push([liquid.X[i],liquid.Y[i]]);if(trail.length>90)trail.shift();}
+      octx.strokeStyle=COLORS[liquid.T[i]];octx.lineWidth=1.5;octx.beginPath();
+      trail.forEach(([x,y],k)=>k?octx.lineTo(x,y):octx.moveTo(x,y));octx.stroke();
+      octx.strokeStyle='rgba(255,255,255,.9)';octx.beginPath();octx.arc(liquid.X[i],liquid.Y[i],3,0,Math.PI*2);octx.stroke();
+    }
+  }
+  const stepPx=st.temp*s*.08;
+  setText($('#walkReadout'),stepPx>0?`Each step: ${stepPx.toFixed(2)} px in a random direction, 120× a second.`:'Random steps off: only gravity and your hand move the liquid.');
+  if(useGL()){
+    if(!cvClean){ctx.clearRect(0,0,W,H);cvClean=true;}
+    gooGL.draw(liquid,GLCOLORS);
+  }else{
+    ctx.clearRect(0,0,W,H);cvClean=false;
+    liquid.render(ctx,COLORS,st.goo);
+  }
+  drawTrackedParticle(t);
+  if(ptr.in){
+    const col='255,255,255';
+    octx.strokeStyle=`rgba(${col},${ptr.down?0.55:0.25})`; octx.lineWidth=1.5;
+    octx.beginPath(); octx.arc(ptr.x,ptr.y,st.tool==='pour'?s*1.5:s*5,0,6.2832); octx.stroke();
+  }
+  if(uiTick)setText($('#stats'),`${liquid.n.toLocaleString()} particles`);
+  // auto-fallback if the SVG goo filter (used only without WebGL) is too slow on this machine
+  if(!useGL() && st.goo && fpsAvg<24){ if(++slow>180){ st.goo=false; $('#goo').checked=false; applyRenderMode(); } } else slow=0;
 
   const ang=Math.atan2(g.y,g.x), len=6+18*Math.min(1,Math.hypot(g.x,g.y));
   $('#dial').setAttribute('aria-valuenow',Math.round((ang*180/Math.PI+360)%360));
@@ -1151,13 +1035,12 @@ function frame(t){
 document.addEventListener('visibilitychange',()=>{last=performance.now();accumulator=0;ptr.down=false;});
 if(innerWidth<=760)$('#collapse').click();
 let rT=0; addEventListener('resize',()=>{ clearTimeout(rT); rT=setTimeout(resize,200); });
-// URL options: ?mode=coral  &warm=600 (fast-forward N steps, handy for screenshots)
+// URL option: ?warm=600 (fast-forward N steps, handy for screenshots)
 const QS=new URLSearchParams(location.search);
-setMode(['layers','coral'].includes(QS.get('mode')) ? QS.get('mode') : 'layers');
+resetSimulation();
 for(let k=0, N=Math.min(5000,+QS.get('warm')||0); k<N; k++){
   const g=gravity();
-  if(st.mode==='layers') liquid.step({gx:g.x,gy:g.y,temp:st.temp});
-  else coral.step({gx:g.x,gy:g.y,stick:st.stick,bias:0});
+  liquid.step({gx:g.x,gy:g.y,temp:st.temp});
 }
 guideOpen(false);inspectorVisibility();
 requestAnimationFrame(frame);
